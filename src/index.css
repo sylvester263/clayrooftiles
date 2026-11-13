@@ -1,0 +1,293 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+@import "shadcn/tailwind.css";
+@import "@fontsource-variable/google-sans";
+
+/* Gilroy — self-hosted (Light 300 for body, ExtraBold 800 for headings). WOFF2
+   first (~27 KB each, half the OTF size), OTF kept as the fallback source.
+   Replace with the full commercial Gilroy pack when licensed for additional
+   weight coverage (Regular 400, Medium 500, Semibold 600, Bold 700). */
+@font-face {
+  font-family: "Gilroy";
+  src: url("./assets/fonts/Gilroy-ExtraBold.woff2") format("woff2");
+  font-weight: 800;
+  font-style: normal;
+  font-display: swap;
+}
+
+@custom-variant dark (&:is(.dark *));
+
+@theme inline {
+    /* Clay Roof Tiles: Gilroy ExtraBold (pakclay.com's display face) for
+       headings, Google Sans (clayrooftiles build) for everything else. */
+    --font-heading: 'Google Sans Variable', 'Google Sans', ui-sans-serif, system-ui, sans-serif;
+    --font-sans: 'Google Sans Variable', 'Google Sans', ui-sans-serif, system-ui, sans-serif;
+    --font-display: 'Gilroy', 'Google Sans Variable', ui-sans-serif, system-ui, sans-serif;
+    --color-sidebar-ring: var(--sidebar-ring);
+    --color-sidebar-border: var(--sidebar-border);
+    --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+    --color-sidebar-accent: var(--sidebar-accent);
+    --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+    --color-sidebar-primary: var(--sidebar-primary);
+    --color-sidebar-foreground: var(--sidebar-foreground);
+    --color-sidebar: var(--sidebar);
+    --color-chart-5: var(--chart-5);
+    --color-chart-4: var(--chart-4);
+    --color-chart-3: var(--chart-3);
+    --color-chart-2: var(--chart-2);
+    --color-chart-1: var(--chart-1);
+    --color-ring: var(--ring);
+    --color-input: var(--input);
+    --color-border: var(--border);
+    --color-destructive: var(--destructive);
+    --color-accent-foreground: var(--accent-foreground);
+    --color-accent: var(--accent);
+    --color-muted-foreground: var(--muted-foreground);
+    --color-muted: var(--muted);
+    --color-secondary-foreground: var(--secondary-foreground);
+    --color-secondary: var(--secondary);
+    --color-primary-foreground: var(--primary-foreground);
+    --color-primary: var(--primary);
+    --color-popover-foreground: var(--popover-foreground);
+    --color-popover: var(--popover);
+    --color-card-foreground: var(--card-foreground);
+    --color-card: var(--card);
+    --color-foreground: var(--foreground);
+    --color-background: var(--background);
+    --radius-sm: calc(var(--radius) * 0.6);
+    --radius-md: calc(var(--radius) * 0.8);
+    --radius-lg: var(--radius);
+    --radius-xl: calc(var(--radius) * 1.4);
+    --radius-2xl: calc(var(--radius) * 1.8);
+    --radius-3xl: calc(var(--radius) * 2.2);
+    --radius-4xl: calc(var(--radius) * 2.6);
+    /* Storefront-restyle-only tokens (not part of shadcn's base slot set) —
+       slate nav/footer band, alternating carousel panels, price text and
+       the hero photo-wash. See 02-DESIGN-SYSTEM.md. */
+    --color-navy: var(--navy);
+    --color-navy-foreground: var(--navy-foreground);
+    --color-panel-navy: var(--panel-navy);
+    --color-panel-warm: var(--panel-warm);
+    --color-price: var(--price);
+    --color-hero: var(--hero);
+    --color-hero-foreground: var(--hero-foreground);
+    --color-clay: var(--clay);
+    --color-clay-foreground: var(--clay-foreground);
+    --color-band: var(--band);
+    --color-band-foreground: var(--band-foreground);
+    --color-ink: var(--ink);
+    /* Clay Roof Tiles rebrand tokens (2026-09-19): hover/pressed blue, a lighter
+       blue that stays readable as TEXT on the dark slate band (the base blue
+       is only 2.83:1 there), and the two badge pairs. */
+    --color-primary-dark: var(--primary-dark);
+    --color-primary-on-dark: var(--primary-on-dark);
+    --color-badge-neutral: var(--badge-neutral);
+    --color-badge-neutral-foreground: var(--badge-neutral-foreground);
+    --color-badge-accent: var(--badge-accent);
+    --color-badge-accent-foreground: var(--badge-accent-foreground);
+}
+
+/*
+  Clay Roof Tiles design tokens (02-DESIGN-SYSTEM.md at repo root).
+  White / blue / slate-gray palette (2026-09-19 rebrand — replaced the warm
+  terracotta / sand / espresso heritage palette; see 02-DESIGN-SYSTEM.md for
+  the value table and the contrast results). Components reference these
+  tokens (bg-primary, text-muted-foreground, bg-navy …) rather than literal
+  colors, so changing a value here re-skins the whole site.
+*/
+:root {
+    /* Clay Roof Tiles palette (2026-11) — home page after stile.com.pk,
+       inner pages after rhoback.com. Royal blue brand, deep-navy ink for
+       text/buttons on inner pages, clay terracotta kept as the one warm
+       accent (badges, highlights) so the site still reads "clay tiles". */
+    --background: #FFFFFF;
+    --foreground: #1B2540;
+    --ink: #1B2540;
+    --card: #FFFFFF;
+    --card-foreground: #1B2540;
+    --popover: #FFFFFF;
+    --popover-foreground: #1B2540;
+    --primary: #0A4595;
+    --primary-foreground: #FFFFFF;
+    --primary-dark: #08346F;
+    --primary-on-dark: #7FB0F0;
+    --secondary: #EEF2F8;
+    --secondary-foreground: #1B2540;
+    --muted: #F6F7FA;
+    --muted-foreground: #5B6475;
+    --accent: #0A4595;
+    --accent-foreground: #FFFFFF;
+    --destructive: oklch(0.577 0.245 27.325);
+    --border: #E3E7EE;
+    --input: #E3E7EE;
+    --ring: #0A4595;
+    --badge-neutral: #FFFFFF;
+    --badge-neutral-foreground: #1B2540;
+    --badge-accent: #B5532E;
+    --badge-accent-foreground: #FFFFFF;
+    --clay: #B5532E;
+    --clay-foreground: #FFFFFF;
+    --chart-1: #0A4595;
+    --chart-2: #08346F;
+    --chart-3: #7FB0F0;
+    --chart-4: #E3E7EE;
+    --chart-5: #5B6475;
+    --radius: 0.5rem;
+    --sidebar: #1B2540;
+    --sidebar-foreground: #FFFFFF;
+    --sidebar-primary: #0A4595;
+    --sidebar-primary-foreground: #FFFFFF;
+    --sidebar-accent: #2A3657;
+    --sidebar-accent-foreground: #FFFFFF;
+    --sidebar-border: #2A3657;
+    --sidebar-ring: #7FB0F0;
+    /* Announcement bar / dark bands. */
+    --navy: #1B2540;
+    --navy-foreground: #FFFFFF;
+    /* Royal-blue full-width bands (Explore Spaces, Publications). */
+    --band: #0A4595;
+    --band-foreground: #FFFFFF;
+    --panel-navy: #EEF2F8;
+    --panel-warm: var(--muted);
+    --price: #1B2540;
+    --hero: #0B1222;
+    --hero-foreground: #FFFFFF;
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+    }
+  body {
+    @apply bg-background text-foreground font-sans;
+    }
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-heading;
+    }
+}
+
+/* Thin, low-contrast scrollbar on arrow-button-driven horizontal carousels
+   (category icon rail, product rails) — invisible at rest, fades in on
+   hover/active/focus (mouse drag, touch, trackpad, or keyboard scroll all
+   land on the same scrollable element, so :hover/:active/:focus-within
+   covers "actively interacting" without needing a JS scroll listener).
+   Scrolling itself is never affected — this only restyles the scrollbar
+   chrome. Not applied to compare-table.tsx's data table, which keeps its
+   default visible scrollbar since that's a plain wide table, not a
+   carousel. */
+@utility scrollbar-fade {
+  scrollbar-width: thin;
+  scrollbar-color: transparent transparent;
+  transition: scrollbar-color 0.2s ease;
+  &:hover, &:active, &:focus-within {
+    scrollbar-color: rgb(0 0 0 / 0.25) transparent;
+  }
+  &::-webkit-scrollbar {
+    height: 6px;
+    width: 6px;
+  }
+  &::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  &::-webkit-scrollbar-thumb {
+    background-color: transparent;
+    border-radius: 9999px;
+    transition: background-color 0.2s ease;
+  }
+  &:hover::-webkit-scrollbar-thumb,
+  &:active::-webkit-scrollbar-thumb,
+  &:focus-within::-webkit-scrollbar-thumb {
+    background-color: rgb(0 0 0 / 0.25);
+  }
+}
+
+/* Gentle "heartbeat" pulse ring around the AI chat trigger button — slow
+   (2.8s) and low-opacity by design, not a rapid/strobing blink (accessible
+   per the request's own seizure-risk callout). Applied conditionally from
+   JS via framer-motion's `useReducedMotion`, but also guarded here in CSS
+   as a defense-in-depth fallback. */
+@keyframes chat-pulse-ring {
+  0% {
+    transform: scale(1);
+    opacity: 0.55;
+  }
+  70%, 100% {
+    transform: scale(1.7);
+    opacity: 0;
+  }
+}
+@utility chat-pulse-ring {
+  animation: chat-pulse-ring 2.8s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+  @media (prefers-reduced-motion: reduce) {
+    animation: none;
+  }
+}
+
+/* ---- Clay Roof Tiles storefront helpers --------------------------------- */
+
+/* Big, bold home-page section titles (stile.com.pk: ~48px semi-bold). */
+@utility home-title {
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: 2.125rem;
+  line-height: 1.1;
+  letter-spacing: -0.01em;
+  @media (width >= 48rem) {
+    font-size: 3rem;
+  }
+}
+
+/* Quiet inner-page titles (rhoback.com: medium weight, generous size). */
+@utility page-title {
+  font-family: var(--font-sans);
+  font-weight: 500;
+  font-size: 2rem;
+  line-height: 1.15;
+  text-transform: uppercase;
+  letter-spacing: 0.01em;
+  color: var(--ink);
+  @media (width >= 48rem) {
+    font-size: 2.5rem;
+  }
+}
+@utility rail-title {
+  font-family: var(--font-sans);
+  font-weight: 500;
+  font-size: 1.75rem;
+  line-height: 1.2;
+  color: var(--ink);
+  @media (width >= 48rem) {
+    font-size: 2rem;
+  }
+}
+
+/* Subtle geometric lattice used behind the showroom section. */
+@utility lattice-bg {
+  background-color: #F8FAFD;
+  background-image:
+    linear-gradient(30deg, rgb(10 69 149 / 0.045) 12%, transparent 12.5%, transparent 87%, rgb(10 69 149 / 0.045) 87.5%),
+    linear-gradient(150deg, rgb(10 69 149 / 0.045) 12%, transparent 12.5%, transparent 87%, rgb(10 69 149 / 0.045) 87.5%),
+    linear-gradient(30deg, rgb(10 69 149 / 0.045) 12%, transparent 12.5%, transparent 87%, rgb(10 69 149 / 0.045) 87.5%),
+    linear-gradient(150deg, rgb(10 69 149 / 0.045) 12%, transparent 12.5%, transparent 87%, rgb(10 69 149 / 0.045) 87.5%),
+    linear-gradient(60deg, rgb(10 69 149 / 0.03) 25%, transparent 25.5%, transparent 75%, rgb(10 69 149 / 0.03) 75%);
+  background-size: 48px 84px;
+  background-position: 0 0, 0 0, 24px 42px, 24px 42px, 0 0;
+}
+
+/* Hide scrollbars on snap carousels (arrows/drag drive them). */
+@utility no-scrollbar {
+  scrollbar-width: none;
+  &::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+/* <StorageImage> wraps its <img> in <picture>; let the <img> size against
+   the real container so h-full / aspect classes fill it. */
+picture {
+  display: contents;
+}
+
+[data-slot="button"] {
+  border-radius: 0.25rem;
+}

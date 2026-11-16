@@ -35,7 +35,7 @@ function NewArrivalsShowcase() {
 // pakclay.com database; empty sections hide themselves.
 export function Home() {
   useDocumentHead({
-    title: "Clay Roof Tiles — Khaprail & Terracotta Roof Tiles Manufacturer in Pakistan",
+    title: "Pak Clay Natural Tiles Industry Terracotta Jali Khaprail in Lahore",
     fullTitle: true,
     description:
       "Clay Roof Tiles makes khaprail, clay roof and terracotta tiles in Lahore since 1982. Browse the full range, compare sizes and finishes, and request a free sample.",
